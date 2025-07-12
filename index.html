@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Password Reset Redirect</title>
-  <script>
-    window.onload = function() {
-      console.log("🔧 Redirect page loaded.");
-      const hash = window.location.hash;
-      console.log("Hash is:", hash);
-      if (hash.includes('access_token')) {
-        const urlParams = new URLSearchParams(hash.substr(1));
-        const token = urlParams.get('access_token');
-        const newUrl = "https://da35cdda6971.ngrok-free.app/?token=" + token + "&type=recovery";
-        console.log("Redirecting to:", newUrl);
-        window.location.replace(newUrl);
-      } else {
-        document.body.innerHTML = "❌ No access token found.";
-      }
+<script>
+  window.onload = function() {
+    console.log("🔧 Redirect page loaded.");
+
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    console.log("Token is:", token);
+
+    if (token) {
+      // Redirect to your Streamlit app with token and recovery type
+      const newUrl = "https://da35cdda6971.ngrok-free.app/?token=" + token + "&type=recovery";
+      console.log("Redirecting to:", newUrl);
+      window.location.replace(newUrl);
+    } else {
+      document.body.innerHTML = "❌ No access token found.";
     }
-  </script>
-</head>
-<body>
-  <h3>🔄 Redirecting for secure password reset...</h3>
-</body>
-</html>
+  }
+</script>
 
