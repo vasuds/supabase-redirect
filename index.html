@@ -2,16 +2,24 @@
   window.onload = function() {
     console.log("🔧 Redirect page loaded.");
 
-    const hash = window.location.hash.substr(1); // remove the '#'
+    // Log full hash for debugging
+    console.log("Full hash is:", window.location.hash);
+
+    // Remove '#' and parse hash parameters
+    const hash = window.location.hash.substr(1);
     const params = new URLSearchParams(hash);
-    const token = params.get('token');
-    console.log("Token is:", token);
+
+    // Get access_token
+    const token = params.get('access_token');
+    console.log("Access token is:", token);
 
     if (token) {
+      // Build your redirect URL
       const newUrl = "https://da35cdda6971.ngrok-free.app/?token=" + token + "&type=recovery";
       console.log("Redirecting to:", newUrl);
       window.location.replace(newUrl);
     } else {
+      console.log("❌ No access token found in hash.");
       document.body.innerHTML = "❌ No access token found.";
     }
   }
