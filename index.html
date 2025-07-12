@@ -2,22 +2,20 @@
   window.onload = function() {
     console.log("🔧 Redirect page loaded.");
 
-    // Log the full current URL
+    // Log full URL
     console.log("Full URL is:", window.location.href);
-    console.log("Full search is:", window.location.search);
     console.log("Full hash is:", window.location.hash);
 
-    // Try parsing from hash
+    // Parse hash parameters
     const hash = window.location.hash.substr(1);
-    console.log("Parsed hash without #: ", hash);
-
     const params = new URLSearchParams(hash);
 
-    // Log all keys in params
+    // Log all parsed parameters
     for (const [key, value] of params.entries()) {
       console.log(`Param key: ${key}, value: ${value}`);
     }
 
+    // Get access_token and type
     const accessToken = params.get('access_token');
     const type = params.get('type');
 
@@ -25,7 +23,8 @@
     console.log("Type is:", type);
 
     if (accessToken) {
-      const newUrl = `https://da35cdda6971.ngrok-free.app/?token=${accessToken}&type=${type}`;
+      // Encode token safely in URL
+      const newUrl = `https://da35cdda6971.ngrok-free.app/?token=${encodeURIComponent(accessToken)}&type=${encodeURIComponent(type)}`;
       console.log("Redirecting to:", newUrl);
       window.location.replace(newUrl);
     } else {
@@ -34,6 +33,7 @@
     }
   }
 </script>
+
 
 
 
