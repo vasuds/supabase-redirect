@@ -2,12 +2,12 @@
   window.onload = function() {
     console.log("🔧 Redirect page loaded.");
 
-    const params = new URLSearchParams(window.location.search);
+    const hash = window.location.hash.substr(1); // remove the '#'
+    const params = new URLSearchParams(hash);
     const token = params.get('token');
     console.log("Token is:", token);
 
     if (token) {
-      // Redirect to your Streamlit app with token and recovery type
       const newUrl = "https://da35cdda6971.ngrok-free.app/?token=" + token + "&type=recovery";
       console.log("Redirecting to:", newUrl);
       window.location.replace(newUrl);
@@ -16,4 +16,5 @@
     }
   }
 </script>
+
 
